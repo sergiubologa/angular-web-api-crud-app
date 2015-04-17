@@ -1,0 +1,39 @@
+﻿<h1>{{ title }}</h1>
+<div ng-show="itemNotFound != null">
+    <span class="error">{{ itemNotFound }}</span>
+</div>
+<form name="frmSaveItem" ng-submit="save()" novalidate>
+    <input type="hidden" name="id" ng-model="item.id" />
+    <div class="form-group">
+        <label for="desc">Description</label>
+        <input type="text" class="form-control" name="desc" id="desc" ng-model="item.description" placeholder="Enter description" required min="1" max="50">
+        <div ng-show="frmSaveItem.$submitted || frmSaveItem.desc.$touched">
+            <span class="error" ng-show="frmSaveItem.desc.$error.required">
+                Description field is required!
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="measure">Measure</label>
+        <input type="number" class="form-control" name="measure" id="measure" ng-model="item.measure" placeholder="Measure" required min="1">
+        <div ng-show="frmSaveItem.$submitted || frmSaveItem.measure.$touched">
+            <span class="error" ng-show="frmSaveItem.measure.$error.required">
+                Measure field is required!
+            </span>
+        </div>
+        <div ng-show="frmSaveItem.$submitted || frmSaveItem.measure.$touched">
+            <span class="error" ng-show="frmSaveItem.measure.$error.number">
+                Not valid number!
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="unitOfMeasure">Unit of Measure</label>
+        <select name="um" id="unitOfMeasure" ng-model="selectedUm" ng-options="opt as opt.description for opt in umOptions"></select>
+    </div>
+    <button type="submit" class="btn btn-default">Save</button>
+    <a href="#/items">Back to list</a>
+    <div ng-show="saveError != null">
+        <span class="error">{{ saveError }}</span>
+    </div>
+</form>
